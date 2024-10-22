@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work List</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+  min-height: 100vh;
+  background-image: url(https://user-images.githubusercontent.com/13468728/233847739-219cb494-c265-4554-820a-bd3424c59065.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    nav {
+      background: rgba(0, 123, 255, 0.8);
+      color: white;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s;
+    }
+
+    nav:hover {
+      transform: scale(1.02);
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+      color: #ffdd57;
+      transition: color 0.3s;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 5px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+      transition: background 0.3s;
+    }
+
+    th {
+      background: #007bff;
+      color: white;
+    }
+
+    tr:hover {
+      background: #f1f1f1;
+      transform: translateY(-2px);
+      transition: transform 0.2s;
+    }
+
+    a.button {
+      text-decoration: none;
+      color: white;
+      background: #28a745;
+      padding: 10px 15px;
+      border-radius: 5px;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    a.button:hover {
+      background: #218838;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        font-size: 14px;
+      }
+
+      table {
+        font-size: 12px;
+      }
+
+      th, td {
+        padding: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <a class="navbar-brand" th:href="@{/index}">
+    Welcome, <span th:text="${lastname}"></span>!
+  </a>
+  <a href="/work/todoList">Work List</a>
+  <a href="/work/add">Add Work</a>
+  <a href="/work/sort">
+    <i class="fas fa-filter"></i> Filter
+  </a>
+  <a href="/logout" th:href="@{/logout}">Logout</a>
+</nav>
+
+<div layout:fragment="content">
+  <h2>WORK LIST</h2>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Create Time</th>
+      <th>Last Modified</th>
+      <th>Score</th>
+      <th>Is Completed</th>
+      <th>Actions</th>
+    </tr>
+    <tr th:each="work : ${works}">
+      <td th:text="${work.id}"></td>
+      <td>
+        <a th:href="@{/work/{id}(id=${work.id})}" th:text="${work.title}"></a>
+      </td>
+      <td th:text="${work.description}"></td>
+      <td th:text="${#temporals.format(work.createTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+      <td th:text="${#temporals.format(work.lastModified, 'yyyy-MM-dd HH:mm:ss')}"></td>
+      <td th:text="${work.score}"></td>
+      <td th:text="${work.isCompleted}"></td>
+      <td>
+        <a class="button" th:href="'/work/update/' + ${work.id}">UPDATE</a>
+        <a class="button" th:href="'/work/confirmDelete/' + ${work.id}">DELETE</a>
+      </td>
+    </tr>
+  </table>
+</div>
+</body>
+</html>

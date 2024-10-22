@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sort Work List</title>
+  <style>
+    body {
+ min-height: 100vh;
+ background-image: url(https://user-images.githubusercontent.com/13468728/233847739-219cb494-c265-4554-820a-bd3424c59065.jpg);
+ background-repeat: no-repeat;
+ background-position: center;
+ background-size: cover;
+}
+   nav {
+       background: #007bff;
+       color: white;
+       padding: 15px;
+       border-radius: 5px;
+       margin-bottom: 20px;
+   }
+
+   nav a {
+       color: white;
+       text-decoration: none;
+       font-weight: bold;
+   }
+
+   nav a:hover {
+       text-decoration: underline;
+   }
+
+   h2 {
+       text-align: center;
+       color: #007bff;
+   }
+
+   .container {
+       background: white;
+       padding: 20px;
+       border-radius: 8px;
+       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+       max-width: 400px;
+       margin: auto;
+   }
+
+   .control-group {
+       margin-bottom: 15px;
+   }
+
+   label {
+       display: block;
+       margin-bottom: 5px;
+       font-weight: bold;
+   }
+
+   input[type="number"],
+   select {
+       width: 100%;
+       padding: 10px;
+       border: 1px solid #ccc;
+       border-radius: 4px;
+       box-sizing: border-box;
+   }
+
+   button {
+       background: #28a745;
+       color: white;
+       border: none;
+       padding: 10px 15px;
+       border-radius: 5px;
+       cursor: pointer;
+       font-size: 16px;
+       transition: background 0.3s;
+       width: 100%;
+   }
+
+   button:hover {
+       background: #218838;
+   }
+
+   @media (max-width: 600px) {
+       .container {
+           padding: 15px;
+       }
+   }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="/work/todoList">Work List</a>
+</nav>
+<div class="container">
+  <h2>Sort Work List</h2>
+  <form method="get" th:action="@{/work/list}">
+    <div class="control-group">
+      <label for="limit">Limit:</label>
+      <input type="number" id="limit" name="limit" th:value="${work.limit}" min="1" required/>
+    </div>
+
+    <div class="control-group">
+      <label for="minScore">Minimum Score:</label>
+      <input type="number" id="minScore" name="minScore" th:value="${work.minScore}" required/>
+    </div>
+
+    <div class="control-group">
+      <label for="maxScore">Maximum Score:</label>
+      <input type="number" id="maxScore" name="maxScore" th:value="${work.maxScore}" required/>
+    </div>
+
+    <div class="control-group">
+      <label for="isCompleted">Completed:</label>
+      <select id="isCompleted" name="isCompleted">
+        <option value="false" th:selected="${work.isCompleted == false}">No</option>
+        <option value="true" th:selected="${work.isCompleted == true}">Yes</option>
+      </select>
+    </div>
+
+    <div class="control-group">
+      <button type="submit">Filter</button>
+    </div>
+  </form>
+</div>
+</body>
+</html>

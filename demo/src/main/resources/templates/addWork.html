@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Work</title>
+  <style>
+    body {
+ min-height: 100vh;
+ background-image: url(https://user-images.githubusercontent.com/13468728/233847739-219cb494-c265-4554-820a-bd3424c59065.jpg);
+ background-repeat: no-repeat;
+ background-position: center;
+ background-size: cover;
+}
+
+   nav {
+       background: #007bff;
+       color: white;
+       padding: 15px;
+       border-radius: 5px;
+       margin-bottom: 20px;
+   }
+
+   nav a {
+       color: white;
+       text-decoration: none;
+       font-weight: bold;
+   }
+
+   nav a:hover {
+       text-decoration: underline;
+   }
+
+   h2 {
+       text-align: center;
+       color: #007bff;
+   }
+
+   .container {
+       background: white;
+       padding: 20px;
+       border-radius: 8px;
+       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+       max-width: 400px;
+       margin: auto;
+   }
+
+   p {
+       margin-bottom: 15px;
+   }
+
+   label {
+       display: block;
+       margin-bottom: 5px;
+       font-weight: bold;
+   }
+
+   input[type="text"],
+   input[type="datetime-local"],
+   input[type="number"] {
+       width: 100%;
+       padding: 10px;
+       border: 1px solid #ccc;
+       border-radius: 4px;
+       box-sizing: border-box;
+   }
+
+   button {
+       background: #28a745;
+       color: white;
+       border: none;
+       padding: 10px 15px;
+       border-radius: 5px;
+       cursor: pointer;
+       font-size: 16px;
+       transition: background 0.3s;
+       width: 100%;
+   }
+
+   button:hover {
+       background: #218838;
+   }
+
+   @media (max-width: 600px) {
+       .container {
+           padding: 15px;
+       }
+   }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="/work/todoList">Work List</a>
+</nav>
+<div class="container" layout:fragment="content">
+  <h2>ADD WORK</h2>
+  <form th:action="'/work/insert'" th:object="${work}" method="post">
+    <p>
+      <label>Title: </label>
+      <input type="text" th:field="*{title}" required>
+    </p>
+    <p>
+      <label>Description:</label>
+      <input type="text" th:field="*{description}" required>
+    </p>
+    <p>
+      <label>Create Time:</label>
+      <input type="datetime-local" th:field="*{createTime}" required>
+    </p>
+    <p>
+      <label>Last Modified:</label>
+      <input type="datetime-local" th:field="*{lastModified}" required>
+    </p>
+    <p>
+      <label>Score:</label>
+      <input type="number" th:field="*{score}" step="0.01" required>
+    </p>
+
+    <p>
+      <button type="submit">ADD</button>
+    </p>
+  </form>
+</div>
+</body>
+</html>
